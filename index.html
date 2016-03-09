@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>TeXBin</title>
+		<link rel="stylesheet" type="text/css" href="stylesheets/screen.css" />
+		<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+	extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js"],
+	jax: ["input/TeX", "output/HTML-CSS" ],
+});
+		</script>
+		<script type="application/javascript" src='javascripts/MathJax/MathJax.js'></script>
+		<script type="application/javascript" src="javascripts/marked/lib/marked.js"></script>
+	</head>
+	<body>
+		<section id="inputSide">
+			<textarea id="mdInput">\[ \sum_{\sigma \in S_n}\left(sgn(\sigma)\prod_{i=1}^n a_{i,\sigma(i)}\right) \]</textarea>
+		</section>
+		<section id="outputSide">
+		</section>
+
+		<script type="application/javascript">
+(function(document){
+	var textarea = document.querySelector("#mdInput");
+	var output = document.querySelector("#outputSide");
+
+	var timeout = null;
+
+	var update = function() {
+		if (timeout !== null) {
+			window.clearTimeout(timeout);
+			timeout = null;
+		}
+
+		timeout = window.setTimeout(function() {
+			output.innerHTML = textarea.value.replace(/\n/g, "<br />");
+			MathJax.Hub.Queue(['Typeset', MathJax.Hub, output]);
+		}, 250);
+	};
+
+	textarea.addEventListener("change", update);
+	textarea.addEventListener("keyup", update);
+	textarea.addEventListener("paste", update);
+
+	update();
+})(document);
+		</script>
+	</body>
+</html>
