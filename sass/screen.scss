@@ -40,6 +40,10 @@ textarea {
 	background: rgb(240, 240, 240);
 }
 
+#outputSide {
+	overflow: auto;
+}
+
 #MathJax_Message {
 	display: none !important;
 }
