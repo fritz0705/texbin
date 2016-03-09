@@ -15,7 +15,7 @@ MathJax.Hub.Config({
 	</head>
 	<body>
 		<section id="inputSide">
-			<textarea id="mdInput">\[ \sum_{\sigma \in S_n}\left(sgn(\sigma)\prod_{i=1}^n a_{i,\sigma(i)}\right) \]</textarea>
+			<textarea id="mdInput">\[ \sum_{\sigma \in S_n}\left(\mathrm{sgn}(\sigma)\prod_{i=1}^n a_{i,\sigma(i)}\right) \]</textarea>
 		</section>
 		<section id="outputSide">
 		</section>
@@ -34,7 +34,7 @@ MathJax.Hub.Config({
 		}
 
 		timeout = window.setTimeout(function() {
-			output.innerHTML = textarea.value.replace(/\n/g, "<br />");
+			output.innerHTML = "<p>" + textarea.value.replace(/\n\n/g, "</p><p>") + "</p>";
 			MathJax.Hub.Queue(['Typeset', MathJax.Hub, output]);
 		}, 250);
 	};
